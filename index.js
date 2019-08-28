@@ -127,7 +127,6 @@ const getHistory = user => {
     //gets users history
     let pastTweets = streams.home.filter(tweet => tweet.user === user);
     //clear feed
-    console.log(pastTweets)
     $("#newsfeed").html('');
     //add title to newsfeed
     let $user = $("<h4>");
@@ -158,8 +157,10 @@ const getHistory = user => {
         repopFeed();
     });
     $backButton.appendTo($("#newsfeed"));
-    //toggle new tweet button off
-    $("#new-tweet").toggle()
+    //toggle new tweet button off and make sure form is removed
+    $("#new-tweet").hide()
+    $("form").hide()
+
 }
 
 //repopulate feed
