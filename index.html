@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css" type="text/css" />
+  <script src="https://kit.fontawesome.com/d122388856.js"></script>
+  <script src="jquery.js"></script>
+  <script src="data_generator.js"></script>
+  <script src="index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Twiddler <i class="fab fa-twitter"></i></h1>
+    <div class="jumbotron">
+      <div id="newsfeed"></div>
+      <button type="button" class="btn btn-success" id="new-tweet">New Tweet</button>
+      <form class="create-tweet" action="#" id="create-new-tweet">
+        <h5>@ </h5>
+        <input type="text" class="form-field" placeholder="choose a handle" name="handle">
+        <br>
+        <h5>-></h5>
+        <input type="text" class="form-field" id="new-message" placeholder="tweet away!" name="message">
+        <br>
+        <div id="form-buttons" align="center">
+          <input type="submit" value="submit" class="btn btn-info">
+          <button type="button" class="btn btn-danger" id="cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+body {
+  background-color: rgb(246, 244, 241);
+}
+
+a {
+  color: blue !important;
+}
+
+h1 {
+  text-align: center;
+}
+
+h4 {
+  color: blue !important;
+}
+
+h5 {
+  color: blue !important;
+  display: inline;
+}
+
+.jumbotron {
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.form-field {
+  display: inline;
+}
+
+#new-message {
+  width: 90%;
+}
+
+#form-buttons {
+  margin-top: 10px;
+}
