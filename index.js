@@ -111,7 +111,10 @@ const tweetMaker = (handle, message, timestamp) => {
     let tweetBody = message;
     $message.text(tweetBody);
     $message.appendTo($tweet)
-    $tweet.append($("<p class='message' id='time'>").text(time))
+    const $time = $("<p>");
+    $time.attr("id", "time");
+    $time.text(time);
+    $time.prependTo($tweet)
     //return created tweet
     return $tweet;
 }

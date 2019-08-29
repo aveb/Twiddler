@@ -12,6 +12,7 @@ h1 {
 
 h4 {
   color: blue !important;
+  margin-bottom: 20px;
 }
 
 h5 {
@@ -39,12 +40,19 @@ h5 {
 }
 
 #time {
-  margin-top: -20px !important;
   color: cadetblue;
   float: right;
-  margin-right: 20%;
+  margin-right: 5%;
 }
 
 #top-back {
   float: right;
+  margin-bottom: 10px !important;
+}
+
+.tweet {
+  margin-top: 5px;
+  background-color: aliceblue;
+  padding-left: 5%;
+  border-radius: 5px;
 }
