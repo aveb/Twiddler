@@ -73,6 +73,10 @@ form {
   margin-bottom: 10px;
 }
 
+#new-tweet {
+  margin-top: 10px;
+}
+
 .tweet-tags {
   margin-top: -10px;
   margin-left: 10px;
