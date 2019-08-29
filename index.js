@@ -5,17 +5,27 @@ $(document).ready(() => {
     //hide form
     $('form').toggle();
     //populate newsfeed with first 5 tweets
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 6; i++) {
         //get data for tweet from streams.home array
         let handle = streams.home[i].user;
-        let message = streams.home[i].message;
+        let fullMessage = streams.home[i].message;
+        //remove tag from message
+        //extracting a hash tag
+        let tagIndex = fullMessage.indexOf("#");
+        if (tagIndex !== -1) {
+            var message = fullMessage.slice(0, tagIndex);
+            var tagss = fullMessage.slice(tagIndex);
+        } else {
+            var message = fullMessage;
+            var tagss = "";
+        }
         let timestamp = streams.home[i].created_at;
         //create tweet
-        let $tweet = tweetMaker(handle, message, timestamp)
+        let $tweet = tweetMaker(handle, message, timestamp, tagss)
         $tweet.appendTo($("#newsfeed"))
     }
     //keep track of tweet location
-    let index = 8;
+    let index = 6;
 
     //keep newsfeed updated
     setInterval(() => {
@@ -23,9 +33,20 @@ $(document).ready(() => {
         if (streams.home.length - 1 > index && checkingHistory === false) {
             //create tweet
             let handle = streams.home[index].user;
-            let message = streams.home[index].message;
+            let fullMessage = streams.home[index].message;
+            //remove tag from message
+            //extracting a hash tag
+            let tagIndex = fullMessage.indexOf("#");
+            if (tagIndex !== -1) {
+                var message = fullMessage.slice(0, tagIndex);
+                var tagss = fullMessage.slice(tagIndex);
+            } else {
+                var message = fullMessage;
+                var tagss = "";
+            }
+
             let timestamp = streams.home[index].created_at;
-            let $tweet = tweetMaker(handle, message, timestamp)
+            let $tweet = tweetMaker(handle, message, timestamp, tagss);
             $tweet.prependTo($("#newsfeed"))
             //update tweet location
             index++;
@@ -36,6 +57,7 @@ $(document).ready(() => {
                 .remove();
         }
     }, 200);
+
 
     //click event for cancel button
     $("#cancel").on("click", () => {
@@ -60,6 +82,8 @@ $(document).ready(() => {
     })
 
 
+
+
     //click event for submit form
     $('.create-tweet').on('submit', function (event) {
         event.preventDefault()
@@ -68,6 +92,7 @@ $(document).ready(() => {
         console.log(values);
         let handle = values[0].value;
         let message = values[1].value;
+
         //create tweet and add to tweets array
         const tweet = {
             user: handle,
@@ -87,7 +112,7 @@ $(document).ready(() => {
 
 
 //create tweets
-const tweetMaker = (handle, message, timestamp) => {
+const tweetMaker = (handle, message, timestamp, tags) => {
     //create tweet div
     const $tweet = $('<div></div>');
     $tweet.attr("class", "tweet");
@@ -111,14 +136,77 @@ const tweetMaker = (handle, message, timestamp) => {
     let tweetBody = message;
     $message.text(tweetBody);
     $message.appendTo($tweet)
+
+    //create tag 
+    const $tag = $("<p>");
+    $tag.attr("class", "tweet-tags");
+    $tag.text(tags);
+    //click event for tag
+    $tag.on("click", event => {
+        //get user
+        let tag = $(event.target)
+            .text()
+        //refresh feed with user tweets
+        getTagHistory(tag);
+    });
+    $tag.appendTo($tweet);
+
     const $time = $("<p>");
     $time.attr("id", "time");
     $time.text(time);
-    $time.prependTo($tweet)
+    $time.appendTo($tweet)
     //return created tweet
     return $tweet;
 }
 
+const getTagHistory = tag => {
+    checkingHistory = true;
+    //getting tag history
+    let pastTweets = streams.home.filter(tweet => {
+        return tweet.message.indexOf(tag) !== -1
+    });
+    //clear feed
+    $("#newsfeed").html('');
+    //add title to newsfeed
+    let $user = $("<h4>");
+    $user.text(tag);
+    $user.appendTo("#newsfeed");
+    //populate with up to 5 most recent tweets
+    for (let i = pastTweets.length - 1; i > -1; i--) {
+        //make sure tweet exits
+        if (pastTweets[i]) {
+            let handle = pastTweets[i].user;
+            let fullMessage = pastTweets[i].message;
+            //extracting a hash tag
+            let tagIndex = fullMessage.indexOf("#");
+            if (tagIndex !== -1) {
+                var message = fullMessage.slice(0, tagIndex);
+                var tagss = fullMessage.slice(tagIndex);
+            } else {
+                var message = fullMessage;
+                var tagss = "";
+            }
+            let timestamp = pastTweets[i].created_at;
+            let $tweet = tweetMaker(handle, message, timestamp)
+            //append to newsfeed
+            $tweet.appendTo($("#newsfeed"))
+        }
+    }
+    //add back button
+    let $backButton = $("<button>");
+    $backButton.attr("type", "button");
+    $backButton.attr("class", "btn btn-primary");
+    $backButton.attr("id", "top-back");
+    $backButton.text("back to feed");
+    $backButton.on("click", () => {
+        repopFeed();
+    });
+    $backButton.prependTo($("#newsfeed"));
+
+    //toggle new tweet button off and make sure form is removed
+    $("#new-tweet").hide()
+    $("form").hide()
+}
 
 //get user history
 /* 
@@ -175,7 +263,7 @@ const repopFeed = () => {
     checkingHistory = false;
     //clear feed
     $("#newsfeed").html('');
-    for (let i = streams.home.length - 1; i > streams.home.length - 9; i--) {
+    for (let i = streams.home.length - 1; i > streams.home.length - 7; i--) {
         //make sure tweet exits
         let handle = streams.home[i].user;
         let message = streams.home[i].message;
@@ -187,3 +275,4 @@ const repopFeed = () => {
     //toggle new tweet button on
     $("#new-tweet").toggle()
 }
+

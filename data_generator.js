@@ -61,7 +61,7 @@ for (let i = 0; i < 8; i++) {
 
 const scheduleNextTweet = () => {
   generateRandomTweet();
-  setTimeout(scheduleNextTweet, Math.random() * 5000);
+  setTimeout(scheduleNextTweet, Math.random() * 10000);
 };
 scheduleNextTweet();
 
