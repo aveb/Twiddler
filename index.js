@@ -5,7 +5,7 @@ $(document).ready(() => {
     //hide form
     $('form').toggle();
     //populate newsfeed with first 5 tweets
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 8; i++) {
         //get data for tweet from streams.home array
         let handle = streams.home[i].user;
         let message = streams.home[i].message;
@@ -15,7 +15,7 @@ $(document).ready(() => {
         $tweet.appendTo($("#newsfeed"))
     }
     //keep track of tweet location
-    let index = 5;
+    let index = 8;
 
     //keep newsfeed updated
     setInterval(() => {
@@ -105,12 +105,13 @@ const tweetMaker = (handle, message, timestamp) => {
         getHistory(user);
     });
     //create correct timestamp
-    let time = timestamp.toLocaleString().split(",")[1];
+    let time = moment(timestamp).fromNow();
     //create tweet message
-    const $message = $("<p>");
-    let tweetBody = message + "  " + time;
+    const $message = $("<p class='message'>");
+    let tweetBody = message;
     $message.text(tweetBody);
     $message.appendTo($tweet)
+    $tweet.append($("<p class='message' id='time'>").text(time))
     //return created tweet
     return $tweet;
 }
@@ -133,7 +134,7 @@ const getHistory = user => {
     $user.text("@" + user);
     $user.appendTo("#newsfeed");
     //populate with up to 5 most recent tweets
-    for (let i = pastTweets.length - 1; i > pastTweets.length - 6; i--) {
+    for (let i = pastTweets.length - 1; i > -1; i--) {
         //make sure tweet exits
         if (pastTweets[i]) {
             let handle = pastTweets[i].user;
@@ -152,11 +153,13 @@ const getHistory = user => {
     let $backButton = $("<button>");
     $backButton.attr("type", "button");
     $backButton.attr("class", "btn btn-primary");
+    $backButton.attr("id", "top-back");
     $backButton.text("back to feed");
     $backButton.on("click", () => {
         repopFeed();
     });
-    $backButton.appendTo($("#newsfeed"));
+    $backButton.prependTo($("#newsfeed"));
+
     //toggle new tweet button off and make sure form is removed
     $("#new-tweet").hide()
     $("form").hide()
@@ -169,7 +172,7 @@ const repopFeed = () => {
     checkingHistory = false;
     //clear feed
     $("#newsfeed").html('');
-    for (let i = streams.home.length - 1; i > streams.home.length - 6; i--) {
+    for (let i = streams.home.length - 1; i > streams.home.length - 9; i--) {
         //make sure tweet exits
         let handle = streams.home[i].user;
         let message = streams.home[i].message;

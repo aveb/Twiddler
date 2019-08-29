@@ -37,3 +37,14 @@ h5 {
 #form-buttons {
   margin-top: 10px;
 }
+
+#time {
+  margin-top: -20px !important;
+  color: cadetblue;
+  float: right;
+  margin-right: 20%;
+}
+
+#top-back {
+  float: right;
+}

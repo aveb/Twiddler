@@ -55,7 +55,7 @@ const generateRandomTweet = () => {
   addTweet(tweet);
 };
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 8; i++) {
   generateRandomTweet();
 }
 
