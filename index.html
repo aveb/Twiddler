@@ -23,14 +23,18 @@
     <h1>Twiddler <i class="fab fa-twitter"></i></h1>
     <div class="jumbotron">
       <div id="newsfeed"></div>
-      <button type="button" class="btn btn-success" id="new-tweet">New Tweet</button>
+      <div align="center">
+        <i class="fas fa-plus fa-2x" id="new-tweet"></i>
+      </div>
       <form class="create-tweet" action="#" id="create-new-tweet">
-        <h5>@ </h5>
-        <input type="text" class="form-field" placeholder="choose a handle" name="handle">
-        <br>
-        <h5>-></h5>
-        <input type="text" class="form-field" id="new-message" placeholder="tweet away!" name="message">
-        <br>
+        <div align="center" id="handle-input">
+          <h5>@ </h5>
+          <input type="text" class="form-field" placeholder="choose a handle" name="handle">
+        </div>
+        <div align="center">
+          <h5>-></h5>
+          <input type="text" class="form-field" id="new-message" placeholder="tweet away!" name="message">
+        </div>
         <div id="form-buttons" align="center">
           <input type="submit" value="submit" class="btn btn-info">
           <button type="button" class="btn btn-danger" id="cancel">Cancel</button>
