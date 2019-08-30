@@ -44,6 +44,10 @@ form {
   border-radius: 5px;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 .jumbotron {
   margin-left: 20%;
   margin-right: 20%;
@@ -101,4 +105,8 @@ form {
   font-style: italic;
   color: rgb(131, 171, 250);
   display: inline-block;
+}
+
+.tweet-tags:hover {
+  cursor: pointer;
 }
