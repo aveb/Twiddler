@@ -110,3 +110,7 @@ a:hover {
 .tweet-tags:hover {
   cursor: pointer;
 }
+
+#new-tweet:hover {
+  cursor: pointer;
+}
