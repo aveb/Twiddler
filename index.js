@@ -1,5 +1,6 @@
 //switch for checking history
 let checkingHistory = false;
+let timeInterval = 200;
 
 $(document).ready(() => {
     //hide form
@@ -56,7 +57,7 @@ $(document).ready(() => {
                 .last()
                 .remove();
         }
-    }, 200);
+    }, timeInterval);
 
 
     //click event for cancel button
@@ -100,6 +101,32 @@ $(document).ready(() => {
             created_at: new Date(),
         };
         streams.home.push(tweet);
+
+        //immediately display new tweet
+        //create tweet
+        handle = streams.home[index].user;
+        fullMessage = streams.home[index].message;
+        //remove tag from message
+        //extracting a hash tag
+        let tagIndex = fullMessage.indexOf("#");
+        if (tagIndex !== -1) {
+            message = fullMessage.slice(0, tagIndex);
+            tagss = fullMessage.slice(tagIndex);
+        } else {
+            message = fullMessage;
+            tagss = "";
+        }
+
+        timestamp = streams.home[index].created_at;
+        $tweet = tweetMaker(handle, message, timestamp, tagss);
+        $tweet.prependTo($("#newsfeed"))
+        //update tweet location
+        index++;
+        //delete last tweet
+        $("#newsfeed")
+            .children()
+            .last()
+            .remove();
         //hide form
         $("form").toggle();
         $("#new-tweet").toggle();
@@ -147,6 +174,7 @@ const tweetMaker = (handle, message, timestamp, tags) => {
         let tag = $(event.target)
             .text()
         //refresh feed with user tweets
+        timeInterval = 0;
         getTagHistory(tag);
     });
     $tag.appendTo($tweet);
@@ -199,6 +227,7 @@ const getTagHistory = tag => {
     $backButton.attr("id", "top-back");
     $backButton.text("back to feed");
     $backButton.on("click", () => {
+        timeInterval = 200;
         repopFeed();
     });
     $backButton.prependTo($("#newsfeed"));
