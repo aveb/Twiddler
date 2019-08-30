@@ -229,9 +229,18 @@ const getHistory = user => {
         //make sure tweet exits
         if (pastTweets[i]) {
             let handle = pastTweets[i].user;
-            let message = pastTweets[i].message;
+            let fullMessage = pastTweets[i].message;
+            //extracting a hash tag
+            let tagIndex = fullMessage.indexOf("#");
+            if (tagIndex !== -1) {
+                var message = fullMessage.slice(0, tagIndex);
+                var tagss = fullMessage.slice(tagIndex);
+            } else {
+                var message = fullMessage;
+                var tagss = "";
+            }
             let timestamp = pastTweets[i].created_at;
-            let $tweet = tweetMaker(handle, message, timestamp)
+            let $tweet = tweetMaker(handle, message, timestamp, tagss)
             //append to newsfeed
             $tweet.appendTo($("#newsfeed"))
         }
@@ -266,9 +275,18 @@ const repopFeed = () => {
     for (let i = streams.home.length - 1; i > streams.home.length - 7; i--) {
         //make sure tweet exits
         let handle = streams.home[i].user;
-        let message = streams.home[i].message;
+        let fullMessage = streams.home[i].message;
+        //extracting a hash tag
+        let tagIndex = fullMessage.indexOf("#");
+        if (tagIndex !== -1) {
+            var message = fullMessage.slice(0, tagIndex);
+            var tagss = fullMessage.slice(tagIndex);
+        } else {
+            var message = fullMessage;
+            var tagss = "";
+        }
         let timestamp = streams.home[i].created_at;
-        let $tweet = tweetMaker(handle, message, timestamp)
+        let $tweet = tweetMaker(handle, message, timestamp, tagss)
         //append to newsfeed
         $tweet.appendTo($("#newsfeed"))
     }
