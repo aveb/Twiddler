@@ -1,6 +1,5 @@
 //switch for checking history
 let checkingHistory = false;
-let timeInterval = 200;
 
 $(document).ready(() => {
     //hide form
@@ -63,7 +62,7 @@ $(document).ready(() => {
     //click event for cancel button
     $("#cancel").on("click", () => {
         $("form").toggle();
-        $("#new-tweet").toggle()
+        $("#new-tweet").fadeIn(1000);
     });
 
     //click event for new tweet
@@ -71,7 +70,7 @@ $(document).ready(() => {
         //reset form field
         $('.form-field').val("");
         //show form
-        $("form").toggle();
+        $("form").fadeIn(1000);
         //toggle new tweet button
         $("#new-tweet").toggle();
     })
@@ -117,7 +116,7 @@ $(document).ready(() => {
         //create tweet and add to tweets array
         const tweet = {
             user: handle,
-            message: message,
+            message: fullMessage,
             created_at: timestamp
         };
         //add tweet as second to last element in array to avoid repeat post
@@ -151,6 +150,8 @@ const tweetMaker = (handle, message, timestamp, tags) => {
             .slice(1);
         //refresh feed with user tweets
         getHistory(user);
+        $("#newsfeed").fadeOut(0)
+        $("#newsfeed").fadeIn(1000)
     });
     //create correct timestamp
     let time = moment(timestamp).fromNow();
@@ -172,6 +173,8 @@ const tweetMaker = (handle, message, timestamp, tags) => {
         //refresh feed with user tweets
         timeInterval = 0;
         getTagHistory(tag);
+        $("#newsfeed").fadeOut(0)
+        $("#newsfeed").fadeIn(1000)
     });
     $tag.appendTo($tweet);
 
@@ -223,7 +226,8 @@ const getTagHistory = tag => {
     $backButton.attr("id", "top-back");
     $backButton.text("back to feed");
     $backButton.on("click", () => {
-        timeInterval = 200;
+        $("#newsfeed").fadeOut(0)
+        $("#newsfeed").fadeIn(1000)
         repopFeed();
     });
     $backButton.prependTo($("#newsfeed"));
@@ -281,6 +285,8 @@ const getHistory = user => {
     $backButton.attr("id", "top-back");
     $backButton.text("back to feed");
     $backButton.on("click", () => {
+        $("#newsfeed").fadeOut(0)
+        $("#newsfeed").fadeIn(1000)
         repopFeed();
     });
     $backButton.prependTo($("#newsfeed"));
