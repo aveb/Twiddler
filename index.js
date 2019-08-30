@@ -57,7 +57,7 @@ $(document).ready(() => {
                 .last()
                 .remove();
         }
-    }, timeInterval);
+    }, 0);
 
 
     //click event for cancel button
