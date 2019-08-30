@@ -87,46 +87,42 @@ $(document).ready(() => {
 
     //click event for submit form
     $('.create-tweet').on('submit', function (event) {
+        index += 1;
         event.preventDefault()
         let values = $(this).serializeArray()
         //get handle
-        console.log(values);
         let handle = values[0].value;
-        let message = values[1].value;
+        let fullMessage = values[1].value;
+        let timestamp = new Date();
 
-        //create tweet and add to tweets array
-        const tweet = {
-            user: handle,
-            message: message,
-            created_at: new Date(),
-        };
-        streams.home.push(tweet);
-
-        //immediately display new tweet
-        //create tweet
-        handle = streams.home[index].user;
-        fullMessage = streams.home[index].message;
-        //remove tag from message
-        //extracting a hash tag
+        //immediately post tweet
         let tagIndex = fullMessage.indexOf("#");
         if (tagIndex !== -1) {
-            message = fullMessage.slice(0, tagIndex);
-            tagss = fullMessage.slice(tagIndex);
+            var message = fullMessage.slice(0, tagIndex);
+            var tagss = fullMessage.slice(tagIndex);
         } else {
-            message = fullMessage;
-            tagss = "";
+            var message = fullMessage;
+            var tagss = "";
         }
-
-        timestamp = streams.home[index].created_at;
         $tweet = tweetMaker(handle, message, timestamp, tagss);
         $tweet.prependTo($("#newsfeed"))
-        //update tweet location
-        index++;
+
         //delete last tweet
         $("#newsfeed")
             .children()
             .last()
             .remove();
+
+
+        //create tweet and add to tweets array
+        const tweet = {
+            user: handle,
+            message: message,
+            created_at: timestamp
+        };
+        //add tweet as second to last element in array to avoid repeat post
+        streams.home.splice(streams.home.length - 2, 0, tweet);
+
         //hide form
         $("form").toggle();
         $("#new-tweet").toggle();
