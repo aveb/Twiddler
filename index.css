@@ -114,3 +114,27 @@ a:hover {
 #new-tweet:hover {
   cursor: pointer;
 }
+
+@media screen and (max-width: 991px) {
+  /* start of large tablet styles */
+  .jumbotron {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* start of medium tablet styles */
+  .jumbotron {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* start of phone styles */
+  .jumbotron {
+    margin-left: 0%;
+    margin-right: 0%;
+  }
+}
