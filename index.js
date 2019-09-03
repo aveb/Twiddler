@@ -61,6 +61,7 @@ $(document).ready(() => {
 
     //click event for cancel button
     $("#cancel").on("click", () => {
+        $("h1").slideDown('slow');
         $("form").toggle();
         $("#new-tweet").fadeIn(1000);
     });
@@ -70,7 +71,8 @@ $(document).ready(() => {
         //reset form field
         $('.form-field').val("");
         //show form
-        $("form").fadeIn(1000);
+        $("form").slideDown('slow');
+        $('h1').slideUp('slow');
         //toggle new tweet button
         $("#new-tweet").toggle();
     })
@@ -121,7 +123,8 @@ $(document).ready(() => {
         };
         //add tweet as second to last element in array to avoid repeat post
         streams.home.splice(streams.home.length - 2, 0, tweet);
-
+        //show title
+        $("h1").slideDown('slow');
         //hide form
         $("form").toggle();
         $("#new-tweet").toggle();
