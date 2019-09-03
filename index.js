@@ -117,7 +117,7 @@ $(document).ready(() => {
 
         //create tweet and add to tweets array
         const tweet = {
-            user: handle,
+            user: handle.toLowerCase(),
             message: fullMessage,
             created_at: timestamp
         };
